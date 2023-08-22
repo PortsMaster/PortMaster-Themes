@@ -75,7 +75,7 @@ jobs:
           replacesArtifacts: false
           omitNameDuringUpdate: true
           artifacts: "*.json, *.zip, *.md5"
-          token: ${{ secrets.PORTMASTER_RELEASE_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           repo: ${{ steps.env.outputs.RELEASE_REPO}}
           owner: ${{ steps.env.outputs.RELEASE_ORG}}
 

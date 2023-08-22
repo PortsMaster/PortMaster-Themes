@@ -109,7 +109,9 @@ def main():
 
         themes["themes"][theme_info["file"].rsplit('.', 2)[0]] = theme_info
 
-    print(json.dumps(themes, indent=4))
+    # print(json.dumps(themes, indent=4))
+    with open("themes.json", "w") as fh:
+        json.dump(themes, fh, indent=4)
 
 
 if __name__ == '__main__':
