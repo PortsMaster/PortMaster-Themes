@@ -52,7 +52,7 @@ jobs:
       - name: Collate theme data.
         id: theme-info
         run: |
-          python3 theme_info.py
+          python3 themes.py
  
       - name: Create md5 hashes
         id: md5
