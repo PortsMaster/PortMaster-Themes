@@ -70,7 +70,7 @@ def zip_get_theme_info(zip_file):
                     continue
 
                 if file_name in ('screenshot.jpg', 'screenshot.png'):
-                    image_file = zip_file.parent / (zip_file.name.rsplit('.', 2)[0] + file_name)
+                    image_file = zip_file.parent / (zip_file.name.rsplit('.', 2)[0] + '.' + file_name)
 
                     with open(image_file, 'wb') as fh:
                         fh.write(zf.read(file_info.filename))
