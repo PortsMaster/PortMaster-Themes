@@ -73,7 +73,7 @@ jobs:
           prerelease: false
           replacesArtifacts: false
           omitNameDuringUpdate: true
-          artifacts: "*.json, *.zip, *.md5"
+          artifacts: "*.json, *.zip, *.md5, *.pot"
           token: ${{ secrets.GITHUB_TOKEN }}
           repo: ${{ steps.env.outputs.RELEASE_REPO}}
           owner: ${{ steps.env.outputs.RELEASE_ORG}}
