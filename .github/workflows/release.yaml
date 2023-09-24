@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-20.04
 
     steps:
-      - name: env - better defaulting of env vars
+      - name: env - better defaulting of env vars;
         id: env
         run: |
             RELEASE_REPO="${{ secrets.RELEASE_REPO }}"
@@ -64,7 +64,7 @@ jobs:
               md5sum "$file" | cut -f1 -d' ' > "$file.md5"
             done
 
-       - name: "Prepare Release"
+      - name: "Prepare Release"
         uses: ncipollo/release-action@v1
         with:
           tag: "${{steps.date.outputs.date}}"
