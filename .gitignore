@@ -1,5 +1,5 @@
 .DS_Store
 themes.json
-themes.pot
+theme_translations.json
 *.screenshot.png
 *.screenshot.jpg

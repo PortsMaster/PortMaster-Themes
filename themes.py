@@ -199,10 +199,6 @@ def main():
     translations = {
         }
 
-    default_theme = fetch_url("https://github.com/kloptops/harbourmaster/raw/main/pylibs/default_theme/theme.json")
-    if default_theme is not None:
-        parse_translations("default_theme", translations, default_theme)
-
     for theme_zip in git_path.glob("*.theme.zip"):
         theme_info = zip_get_theme_info(theme_zip, translations)
         if theme_info is None:
@@ -214,7 +210,8 @@ def main():
     with open("themes.json", "w") as fh:
         json.dump(themes, fh, indent=4)
 
-    dump_translations("themes.pot", translations)
+    with open("theme_translations.json", "w") as fh:
+        json.dump(translations, fh, indent=4)
 
 
 if __name__ == '__main__':
