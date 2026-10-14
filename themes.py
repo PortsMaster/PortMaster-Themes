@@ -145,12 +145,16 @@ def zip_get_theme_info(zip_file, translations):
         base_name = zip_file.name.rsplit('.', 2)[0]
 
         with zipfile.ZipFile(zip_file, 'r') as zf:
+            if any('\\' in file_info.filename for file_info in zf.infolist()):
+                # Zipped on Windows: older PortMasters install these as files named "folder\file".
+                print(f"{zip_file}: WARNING: paths use \\ instead of /, rezip it with / so every PortMaster can install it.")
+
             for file_info in zf.infolist():
 
-                if file_info.filename.endswith('/'):
+                if file_info.filename.endswith(('/', '\\')):
                     continue
 
-                file_name = file_info.filename.rsplit('/', 1)[-1].lower()
+                file_name = file_info.filename.replace('\\', '/').rsplit('/', 1)[-1].lower()
 
                 if file_name == 'theme.json':
                     theme_data = json.loads(zf.read(file_info.filename).decode('utf-8'))
