@@ -122,7 +122,7 @@
 
         "message_text": {
             "parent": "main_area",
-            "area": [ 0.0, 0.0, -45, 1.0 ],
+            "area": [0.0, 0.0, -45, -22],
             "text": " ",
             "text-wrap": true,
             "align": "bottomleft"

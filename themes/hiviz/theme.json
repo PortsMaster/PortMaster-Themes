@@ -554,15 +554,17 @@
             "blend-mode": "blend",
             "fill": "background_fade"
         },
-        "#element:button_bar": {},
 
+        "filter_panel": {
+            "area": [ 0.4, 0.0, 1.0, 1.0 ],
+            "fill": "panels"
+        },
         "filter_list": {
-		    "area": [ 0.4, 8, 1.0, 1.0 ],
-			"area[3:2]": [ 0.4, 8, 1.0, 1.0 ],
-            "area[hires,!960x544]": [ 0.4, 16, 1.0, 1.0 ],
-            "area[1920x1152]": [ 0.4, 16, 1.0, 1.0 ],
-            "area[1920x1080]": [ 0.4, 16, 1.0, 1.0 ],
-            "fill": "panels",
+		    "area": [ 0.4, 8, 1.0, 0.92 ],
+			"area[3:2]": [ 0.4, 8, 1.0, 0.92 ],
+            "area[hires,!960x544]": [ 0.4, 16, 1.0, 0.92 ],
+            "area[1920x1152]": [ 0.4, 16, 1.0, 0.92 ],
+            "area[1920x1080]": [ 0.4, 16, 1.0, 0.92 ],
             "font-size": 22,
             "font-size[ja_JP]": 17,
             "font-color": "list_text",
@@ -572,7 +574,8 @@
             "list-spacer": 3,
             "list": [],
             "align": "midleft"
-        }
+        },
+        "#element:button_bar": {}
     },
 
     "message_window": {
