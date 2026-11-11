@@ -5,7 +5,7 @@ on:
     branches: [ main ]
   workflow_dispatch:
 
-concurrency: 
+concurrency:
   group: release # only 1 release at a time
 
 jobs:
@@ -13,56 +13,36 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: env - better defaulting of env vars;
+      - name: env - better defaulting of env vars
         id: env
         run: |
             RELEASE_REPO="${{ secrets.RELEASE_REPO }}"
             if [[ -z "$RELEASE_REPO" ]]; then
               RELEASE_REPO="PortMaster-Themes"
             fi
-            echo "::set-output name=RELEASE_REPO::$RELEASE_REPO"
+            echo "RELEASE_REPO=$RELEASE_REPO" >> $GITHUB_OUTPUT
 
             RELEASE_ORG="${{ secrets.RELEASE_ORG }}"
             if [[ -z "$RELEASE_ORG" ]]; then
               RELEASE_ORG="PortsMaster"
             fi
-            echo "::set-output name=RELEASE_ORG::$RELEASE_ORG"
+            echo "RELEASE_ORG=$RELEASE_ORG" >> $GITHUB_OUTPUT
 
-      - uses: hmarr/debug-action@v2
-        name: "debug: ${{github.event_name}}"
-     
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
         with:
           python-version: '3.x'
 
       - name: Get release name for artifacts
         id: date
         run: |
-            echo "::set-output name=date::$(date +'%Y-%m-%d_%H%M')"
+            echo "date=$(date +'%Y-%m-%d_%H%M')" >> $GITHUB_OUTPUT
 
-      - name: Collate theme data.
-        id: theme-info
+      ## themes/<name>/ -> release/<name>.theme.zip (+ .md5), themes.json, the previews,
+      ## images.zip (+ .md5) and theme_translations.json; the same bytes for an unchanged theme.
+      - name: Build the themes
         run: |
-          python3 themes.py
- 
-      - name: Create images zip from theme screenshots
-        id: images-zip
-        run: |
-          find . \( -iname '*.screenshot.jpg' -o  -iname '*.screenshot.png' \) -exec touch -d '2021-01-01 00:00:00' {} \;
-          find . \( -iname '*.screenshot.jpg' -o  -iname '*.screenshot.png' \) -exec chmod 644 {} \;
-          find . \( -iname '*.screenshot.jpg' -o  -iname '*.screenshot.png' \) | sort | TZ=UTC zip -qX images.zip -@
-
-      - name: Create md5 hashes
-        id: md5
-        run: |
-            for file in *.zip; do
-              if [ ! -f "$file" ]; then
-                continue
-              fi
-              echo "file: $file"
-              md5sum "$file" | cut -f1 -d' ' > "$file.md5"
-            done
+          python3 tools/build_themes.py --out release
 
       - name: "Prepare Release"
         uses: ncipollo/release-action@v1
@@ -73,7 +53,7 @@ jobs:
           prerelease: false
           replacesArtifacts: false
           omitNameDuringUpdate: true
-          artifacts: "*.json, *.zip, *.md5"
+          artifacts: "release/*.json, release/*.zip, release/*.md5"
           token: ${{ secrets.GITHUB_TOKEN }}
           repo: ${{ steps.env.outputs.RELEASE_REPO}}
           owner: ${{ steps.env.outputs.RELEASE_ORG}}
@@ -92,6 +72,5 @@ jobs:
           owner: ${{ steps.env.outputs.RELEASE_ORG}}
 
       - name: Release Info
-        id: info
         run: |
           echo "Published release: ${{steps.date.outputs.date}} to: https://github.com/${{ steps.env.outputs.RELEASE_ORG}}/${{ steps.env.outputs.RELEASE_REPO}}"

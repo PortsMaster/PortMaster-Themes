@@ -1,0 +1,45 @@
+name: check
+
+## Every pull request: the themes build (theme.json, #info, a license for every font), and
+## PortMaster's layout check renders each changed theme at many screen sizes.
+on:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Build the themes
+        run: |
+          python3 tools/build_themes.py --out release
+
+      - name: Get PortMaster's theme server
+        uses: actions/checkout@v4
+        with:
+          repository: PortsMaster/PortMaster-GUI
+          path: PortMaster-GUI
+
+      - name: Layout check
+        run: |
+          pip install -q pysdl2-dll
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            CHANGED=$(git diff --name-only "origin/${{ github.base_ref }}...HEAD" -- themes | cut -d/ -f2 | sort -u)
+          else
+            CHANGED=$(ls themes)
+          fi
+          if [ -z "$CHANGED" ]; then echo "no theme changed"; exit 0; fi
+          ARGS=""
+          for theme in $CHANGED; do [ -d "themes/$theme" ] && ARGS="$ARGS --theme $theme"; done
+          [ -z "$ARGS" ] && exit 0
+          python3 PortMaster-GUI/tools/theme_server/serve.py --themes themes --export layout $ARGS \
+            --resolutions 640x480,854x480,720x720,1280x720,1920x1080,1240x1080,720x1280,480x320,1024x768 \
+            --schemes all --langs en_US --check
