@@ -1,0 +1,622 @@
+{
+    "#info": {
+        "version": 1,
+        "name": "jimmyhat999 grid (wii)",
+        "creator": "jimmyhat999",
+        "description": "Light theme with a port grid and a live info panel.\n\nUI sounds: the menu sounds from Gravwell."
+    },
+
+    "#pallet": {
+        "text": "#1d2733",
+        "text-dim": "#6a7686",
+        "text-select": "#55b9ea",
+        "text-no-select": "#9aa4b1",
+        "on-accent": "#ffffff",
+        "background": "#e9edf2",
+        "header": "#ffffff",
+        "panel": "#ffffff",
+        "border": "#cfd6df",
+        "tile": "#ffffff",
+        "accent": "#55b9ea",
+        "progress-empty": "#d5dce5",
+        "progress-fill": "#55b9ea"
+    },
+
+    "#base": {
+        "font": "DejaVuSans.ttf",
+        "font-size": 20,
+        "font-color": "text",
+        "select-color": "text-select",
+        "no-select-color": "text-no-select",
+        "progress-fill": "progress-fill",
+        "click-sound": "move",
+        "button-sound": "select",
+        "button-sound-alt": "back",
+        "font-scale[lowres]": 0.7,
+        "font-scale[hires]": 1.5,
+        "font-scale[960x544]": 1.1,
+        "font-scale[1024x768]": 1.6,
+        "font-scale[1280x720]": 1.5,
+        "font-scale[720x720]": 1.5,
+        "font-scale[1920x1080]": 2.25,
+        "font-scale[1920x1152]": 2.4
+    },
+
+    "#resources": {
+        "move.wav":   { "name": "move" },
+        "select.wav": { "name": "select" },
+        "back.wav":   { "name": "back" },
+
+        "panel.png":                 {},
+        "panel_hires.png":           {},
+        "battery.png":               {},
+        "storage.png":               {},
+        "Fallback_IMG.png":          {},
+        "menu_featured-ports.png":   {},
+        "menu_install.png":          {},
+        "menu_install-rtr.png":      {},
+        "menu_uninstall.png":        {},
+        "menu_options.png":          {},
+        "menu_exit.png":             {},
+
+        "buttons.png": {
+            "image-mod": [ 85, 185, 234 ],
+            "atlas": {
+                "_A":         [ 0, 0, 44, 44 ],
+                "_B":         [ 44, 0, 44, 44 ],
+                "_X":         [ 88, 0, 44, 44 ],
+                "_Y":         [ 132, 0, 44, 44 ],
+                "_START":     [ 0, 44, 88, 44 ],
+                "_SELECT":    [ 88, 44, 88, 44 ],
+                "_L":         [ 0, 88, 66, 44 ],
+                "_R":         [ 66, 88, 66, 44 ],
+                "_UNCHECKED": [ 176, 0, 44, 44 ],
+                "_CHECKED":   [ 220, 0, 44, 44 ],
+                "_MORE":      [ 176, 44, 44, 44 ],
+                "_LEFT":      [ 220, 44, 22, 44 ],
+                "_RIGHT":     [ 242, 44, 22, 44 ],
+                "_UP":        [ 220, 88, 44, 22 ],
+                "_DOWN":      [ 220, 110, 44, 22 ]
+            }
+        }
+    },
+
+    "#elements": {
+        "background": {
+            "area": [ 0.0, 0.0, 1.0, 1.0 ],
+            "fill": "background"
+        },
+
+        "header": {
+            "area": [ 0.0, 0.0, 1.0, 0.07 ],
+            "fill": "header"
+        },
+
+        "header_line": {
+            "area": [ 0.0, 0.07, 1.0, 0.073 ],
+            "fill": "border"
+        },
+
+        "header_title": {
+            "area": [ 10, 0.0, 0.6, 0.07 ],
+            "text": "{scene.title}",
+            "font-color": "accent",
+            "align": "midleft"
+        },
+
+        "header_battery": {
+            "area": [ 0.9, 0.012, -10, 0.058 ],
+            "area[wide,!4:3]": [ 0.926, 0.012, -10, 0.058 ],
+            "image": "battery.png",
+            "image-mod": "text-dim",
+            "text": "{system.battery_level}",
+            "font-size": 11,
+            "font-color": "text-dim",
+            "align": "center"
+        },
+
+        "main_area": {
+            "area": [ 10, 0.0875, -10, 0.917 ]
+        },
+
+        "left_panel": {
+            "parent": "main_area",
+            "area": [ 0.0, 0.0, 0.47, 1.0 ],
+            "image": "panel.png",
+            "image[hires]": "panel_hires.png",
+            "patch": [ 16, 16, 16, 16 ],
+            "patch[hires]": [ 24, 24, 24, 24 ]
+        },
+
+        "right_panel": {
+            "parent": "main_area",
+            "area": [ 0.49, 0.0, 1.0, 1.0 ],
+            "image": "panel.png",
+            "image[hires]": "panel_hires.png",
+            "patch": [ 16, 16, 16, 16 ],
+            "patch[hires]": [ 24, 24, 24, 24 ]
+        },
+
+        "full_panel": {
+            "parent": "main_area",
+            "area": [ 0.0, 0.0, 1.0, 1.0 ],
+            "image": "panel.png",
+            "image[hires]": "panel_hires.png",
+            "patch": [ 16, 16, 16, 16 ],
+            "patch[hires]": [ 24, 24, 24, 24 ]
+        },
+
+        "menu_list": {
+            "parent": "left_panel",
+            "area": [ 10, 10, -10, -10 ],
+            "list": [],
+            "font-size": 18,
+            "line-height": 1.9,
+            "align": "center",
+            "select-fill": "accent",
+            "select-color": "on-accent",
+            "autoscroll": "marquee"
+        },
+
+        "side_icon": {
+            "parent": "right_panel",
+            "area": [ 0.25, 0.1, 0.75, 0.48 ],
+            "image-mod": "accent"
+        },
+
+        "side_title": {
+            "parent": "right_panel",
+            "area": [ 12, 0.52, -12, 0.62 ],
+            "font-size": 18,
+            "font-color": "accent",
+            "align": "center",
+            "autoscroll": "marquee"
+        },
+
+        "side_text": {
+            "parent": "right_panel",
+            "area": [ 16, 0.55, -16, 0.96 ],
+            "text-wrap": true,
+            "font-size": 16,
+            "align": "midtop",
+            "autoscroll": "slide",
+            "scroll-speed": 60,
+            "scroll-delay-start": 3000,
+            "scroll-delay-end": 3000
+        },
+
+        "side_image": {
+            "parent": "right_panel",
+            "area": [ 12, 12, -12, 0.5 ]
+        },
+
+        "button_bar": {
+            "area": [ 0.0, 0.93, 1.0, 1.0 ],
+            "fill": "header",
+            "border-x": 10,
+            "border-y": 6,
+            "bar-space": 6,
+            "font-size": 18,
+            "bar": []
+        },
+
+        "button_line": {
+            "area": [ 0.0, 0.927, 1.0, 0.93 ],
+            "fill": "border"
+        }
+    },
+
+    "ports_list": {
+        "#element:background": {},
+        "#element:header": {},
+        "#element:header_line": {},
+        "#element:header_title": {},
+        "#element:header_battery": {},
+
+        "ports_list": {
+            "parent": "main_area",
+            "area": [ 0.0, 0.0, 0.63, 0.93 ],
+            "list": [],
+            "list-columns": 3,
+            "list-columns[wide,!4:3]": 4,
+            "item-spacer": 6,
+            "item-spacer[hires]": 8,
+            "item-padding": 5,
+            "item-padding[hires]": 7,
+            "roundness": 8,
+            "roundness[hires]": 12,
+            "font-size": 13,
+            "line-height": 1.3,
+            "alt-fill": "tile",
+            "select-fill": "accent",
+            "select-color": "on-accent",
+            "autoscroll": "marquee"
+        },
+
+        "ports_total": {
+            "parent": "main_area",
+            "area": [ 2, 0.93, 0.315, 1.0 ],
+            "text": "{ports_list.filter_ports} games",
+            "font-size": 14,
+            "font-color": "text-dim",
+            "align": "midleft"
+        },
+
+        "ports_position": {
+            "parent": "main_area",
+            "area": [ 0.315, 0.93, 0.63, 1.0 ],
+            "text": "{if:ports_list.position}{ports_list.position} / {endif}{ports_list.filter_ports}",
+            "font-size": 14,
+            "font-color": "text-dim",
+            "align": "midright"
+        },
+
+        "info_panel": {
+            "parent": "main_area",
+            "area": [ 0.65, 0.0, 1.0, 1.0 ],
+            "image": "panel.png",
+            "image[hires]": "panel_hires.png",
+            "patch": [ 16, 16, 16, 16 ],
+            "patch[hires]": [ 24, 24, 24, 24 ]
+        },
+
+        "info_title": {
+            "parent": "info_panel",
+            "area": [ 8, 0.02, -8, 0.12 ],
+            "text": "{port_info.title}",
+            "font-size": 18,
+            "font-color": "accent",
+            "align": "center",
+            "autoscroll": "marquee"
+        },
+
+        "info_image": {
+            "parent": "info_panel",
+            "area": [ 8, 0.13, -8, 0.5 ],
+            "image": "{port_info.image}"
+        },
+
+        "info_status": {
+            "parent": "info_panel",
+            "area": [ 8, 0.52, -8, 0.6 ],
+            "text": "{port_info.ready_to_run}",
+            "font-size": 14,
+            "font-color": "accent",
+            "align": "midleft"
+        },
+
+        "info_text": {
+            "parent": "info_panel",
+            "area": [ 8, 0.61, -8, 0.98 ],
+            "text": "Genre: {port_info.genres}\nSize: {port_info.download_size}{if:port_info.runtime}\nRuntime: {port_info.runtime}{endif}\n\n{port_info.description}",
+            "text-wrap": true,
+            "font-size": 13,
+            "font-color": "text-dim",
+            "autoscroll": "slide",
+            "scroll-speed": 60,
+            "scroll-delay-start": 3000,
+            "scroll-delay-end": 3000
+        },
+
+        "#element:button_line": {},
+        "#element:button_bar": {}
+    },
+
+    "port_info": {
+        "#element:background": {},
+        "#element:header": {},
+        "#element:header_line": {},
+        "#element:header_title": {},
+        "#element:header_battery": {},
+
+        "detail_panel": {
+            "parent": "main_area",
+            "area": [ 0.0, 0.0, 1.0, 1.0 ],
+            "image": "panel.png",
+            "image[hires]": "panel_hires.png",
+            "patch": [ 16, 16, 16, 16 ],
+            "patch[hires]": [ 24, 24, 24, 24 ]
+        },
+
+        "detail_title": {
+            "parent": "detail_panel",
+            "area": [ 12, 0.02, -12, 0.12 ],
+            "text": "{port_info.title}",
+            "font-size": 22,
+            "font-color": "accent",
+            "align": "midleft",
+            "autoscroll": "marquee"
+        },
+
+        "detail_image": {
+            "parent": "detail_panel",
+            "area": [ 12, 0.14, 0.5, 0.62 ],
+            "image": "{port_info.image}",
+            "image-align": "topleft"
+        },
+
+        "detail_meta": {
+            "parent": "detail_panel",
+            "area": [ 0.53, 0.14, -12, 0.62 ],
+            "text": "{port_info.ready_to_run}\n\nPorter: {port_info.porter}\nGenre: {port_info.genres}\nDownload: {port_info.download_size}{if:port_info.runtime}\nRuntime: {port_info.runtime} ({port_info.runtime_status}){endif}",
+            "text-wrap": true,
+            "font-size": 15,
+            "autoscroll": "slide",
+            "scroll-delay-start": 3000,
+            "scroll-delay-end": 3000
+        },
+
+        "detail_desc": {
+            "parent": "detail_panel",
+            "area": [ 12, 0.66, -12, 0.97 ],
+            "text": "{port_info.description}",
+            "text-wrap": true,
+            "font-size": 15,
+            "font-color": "text-dim",
+            "autoscroll": "slide",
+            "scroll-speed": 60,
+            "scroll-delay-start": 3000,
+            "scroll-delay-end": 3000
+        },
+
+        "#element:button_line": {},
+        "#element:button_bar": {}
+    },
+
+    "main_menu": {
+        "#element:background": {},
+        "#element:header": {},
+        "#element:header_line": {},
+        "#element:header_title": {},
+        "#element:header_battery": {},
+
+        "#element:left_panel": {},
+        "#element:menu_list:option_list": {},
+        "#element:right_panel": {},
+
+        "#element:side_icon:menu_icon": {
+            "image": "menu_{menu.selected}.png"
+        },
+
+        "#element:side_text:menu_tooltip": {
+            "area": [ 16, 0.55, -16, 0.76 ],
+            "text": "{scene.tooltip}"
+        },
+
+        "storage_icon": {
+            "parent": "right_panel",
+            "area": [ 16, 0.78, -16, 0.88 ],
+            "image": "storage.png",
+            "image-mod": "text-dim"
+        },
+
+        "storage_free": {
+            "parent": "right_panel",
+            "area": [ 16, 0.89, -16, 0.96 ],
+            "text": "{system.free_space} free",
+            "font-size": 13,
+            "font-color": "text-dim",
+            "align": "center"
+        },
+
+        "#element:button_line": {},
+        "#element:button_bar": {}
+    },
+
+    "option_menu": {
+        "#element:background": {},
+        "#element:header": {},
+        "#element:header_line": {},
+        "#element:header_title": {},
+        "#element:header_battery": {},
+
+        "#element:left_panel": {},
+        "#element:menu_list:option_list": {
+            "font-size": 16,
+            "line-height": 1.8
+        },
+        "#element:right_panel": {},
+
+        "#element:side_icon:menu_icon": {
+            "image": "menu_options.png"
+        },
+
+        "#element:side_text:menu_tooltip": {
+            "text": "{scene.tooltip}"
+        },
+
+        "#element:button_line": {},
+        "#element:button_bar": {}
+    },
+
+    "themes_list": {
+        "#element:background": {},
+        "#element:header": {},
+        "#element:header_line": {},
+        "#element:header_title": {},
+        "#element:header_battery": {},
+
+        "#element:left_panel": {},
+        "#element:menu_list:themes_list": {},
+        "#element:right_panel": {},
+
+        "#element:side_image:theme_image": {
+            "image": "{theme_info.image}"
+        },
+
+        "#element:side_title:theme_name": {
+            "text": "{theme_info.name}"
+        },
+
+        "#element:side_text:theme_meta": {
+            "area": [ 12, 0.63, -12, 0.71 ],
+            "text": "{if:theme_info.creator}by {theme_info.creator} - {endif}{theme_info.status}",
+            "text-wrap": false,
+            "font-size": 13,
+            "font-color": "text-dim",
+            "align": "center",
+            "autoscroll": "marquee"
+        },
+
+        "#element:side_text:theme_desc": {
+            "area": [ 16, 0.73, -16, 0.96 ],
+            "text": "{theme_info.description}",
+            "font-size": 13,
+            "font-color": "text-dim"
+        },
+
+        "#element:button_line": {},
+        "#element:button_bar": {}
+    },
+
+    "runtime_list": {
+        "#element:background": {},
+        "#element:header": {},
+        "#element:header_line": {},
+        "#element:header_title": {},
+        "#element:header_battery": {},
+
+        "#element:left_panel": {},
+        "#element:menu_list:runtime_list": {
+            "font-size": 14
+        },
+        "#element:right_panel": {},
+
+        "#element:side_title:runtime_name": {
+            "area": [ 12, 0.03, -12, 0.13 ],
+            "text": "{if:runtime_info.name}{runtime_info.name}{endif}"
+        },
+
+        "#element:side_text:runtime_details": {
+            "area": [ 16, 0.17, -16, 0.96 ],
+            "text": "{if:runtime_info.name}Status: {runtime_info.status}\nIn use: {runtime_info.in_use}\nDownload: {runtime_info.download_size}{if:runtime_info.disk_size}\nOn disk: {runtime_info.disk_size}{endif}{if:runtime_info.ports}\n\nUsed by: {runtime_info.ports}{endif}{endif}",
+            "font-size": 14,
+            "align": "topleft"
+        },
+
+        "#element:button_line": {},
+        "#element:button_bar": {}
+    },
+
+    "featured_ports_list": {
+        "#element:background": {},
+        "#element:header": {},
+        "#element:header_line": {},
+        "#element:header_title": {},
+        "#element:header_battery": {},
+
+        "#element:left_panel": {},
+        "#element:menu_list:option_list": {},
+        "#element:right_panel": {},
+
+        "#element:side_image:featured_fallback": {
+            "area": [ 12, 12, -12, 0.4 ],
+            "image-align": "midtop",
+            "image": "Fallback_IMG.png"
+        },
+
+        "#element:side_image:featured_image": {
+            "area": [ 12, 12, -12, 0.4 ],
+            "image-align": "midtop",
+            "image": "{featured_ports.image}"
+        },
+
+        "#element:side_title:featured_name": {
+            "area": [ 12, 0.25, -12, 0.34 ],
+            "area[wide,!4:3]": [ 12, 0.33, -12, 0.42 ],
+            "text": "{featured_ports.name}"
+        },
+
+        "#element:side_text:featured_desc": {
+            "area": [ 16, 0.35, -16, 0.96 ],
+            "area[wide,!4:3]": [ 16, 0.43, -16, 0.96 ],
+            "text": "{featured_ports.description}",
+            "font-size": 13,
+            "font-color": "text-dim"
+        },
+
+        "#element:button_line": {},
+        "#element:button_bar": {}
+    },
+
+    "filter_list": {
+        "#element:background": {},
+        "#element:header": {},
+        "#element:header_line": {},
+        "#element:header_title": {},
+        "#element:header_battery": {},
+
+        "#element:full_panel": {},
+
+        "filter_list": {
+            "parent": "full_panel",
+            "area": [ 10, 10, -10, -10 ],
+            "list": [],
+            "font-size": 18,
+            "line-height": 1.7,
+            "select-color": "accent"
+        },
+
+        "#element:button_line": {},
+        "#element:button_bar": {}
+    },
+
+    "message_window": {
+        "#element:background": {},
+        "#element:header": {},
+        "#element:header_line": {},
+        "#element:header_title": {},
+
+        "#element:full_panel": {},
+
+        "message_text": {
+            "parent": "full_panel",
+            "area": [ 16, 16, -16, -52 ],
+            "text": " ",
+            "text-wrap": true,
+            "font-size": 16,
+            "align": "bottomleft"
+        },
+
+        "progress_bar": {
+            "parent": "full_panel",
+            "area": [ 16, -44, -16, -16 ],
+            "fill": "progress-empty",
+            "bar": ["{system.progress_text}", null, "{system.progress_amount}"],
+            "font-size": 14,
+            "border-x": 8,
+            "align": "midleft"
+        },
+
+        "#element:button_line": {},
+        "#element:button_bar": {}
+    },
+
+    "message_box": {
+        "#element:background": {},
+        "#element:header": {},
+        "#element:header_line": {},
+        "#element:header_title": {},
+
+        "message_panel": {
+            "parent": "main_area",
+            "area": [ 0.1, 0.12, 0.9, 0.88 ],
+            "image": "panel.png",
+            "image[hires]": "panel_hires.png",
+            "patch": [ 16, 16, 16, 16 ],
+            "patch[hires]": [ 24, 24, 24, 24 ]
+        },
+
+        "message_text": {
+            "parent": "message_panel",
+            "area": [ 24, 24, -24, -24 ],
+            "text": "",
+            "text-wrap": true,
+            "font-size": 16,
+            "align": "center"
+        },
+
+        "#element:button_line": {},
+        "#element:button_bar": {}
+    }
+}

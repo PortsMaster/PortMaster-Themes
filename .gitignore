@@ -1,5 +1,4 @@
 .DS_Store
-themes.json
-theme_translations.json
-*.screenshot.png
-*.screenshot.jpg
+release/
+layout/
+__pycache__/
