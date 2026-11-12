@@ -1,0 +1,51 @@
+{
+    "#info": {
+        "name": "Harbour Lights",
+        "creator": "You"
+    },
+    "#base": {
+        "font": "DejaVuSans.ttf",
+        "font-size": 16,
+        "font-color": [ 232, 236, 244 ]
+    },
+    "main_menu": {
+        "option_list": {
+            "area": [ 0.1, 0.1, 0.9, 0.9 ]
+        }
+    },
+    "option_menu": {
+        "option_list": {
+            "area": [ 0.1, 0.1, 0.9, 0.9 ]
+        }
+    },
+    "ports_list": {
+        "ports_list": {
+            "area": [ 0.1, 0.1, 0.9, 0.9 ]
+        }
+    },
+    "port_info": {
+        "port_desc": {
+            "area": [ 0.1, 0.1, 0.9, 0.9 ],
+            "text": "{port_info.description}",
+            "text-wrap": true
+        }
+    },
+    "filter_list": {
+        "filter_list": {
+            "area": [ 0.1, 0.1, 0.9, 0.9 ]
+        }
+    },
+    "message_window": {
+        "message_text": {
+            "area": [ 0.1, 0.1, 0.9, 0.9 ],
+            "text": ""
+        }
+    },
+    "message_box": {
+        "message_text": {
+            "area": [ 0.1, 0.1, 0.9, 0.9 ],
+            "text": "",
+            "text-wrap": true
+        }
+    }
+}

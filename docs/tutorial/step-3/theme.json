@@ -1,0 +1,260 @@
+{
+    "#info": {
+        "name": "Harbour Lights",
+        "creator": "You",
+        "version": 1
+    },
+    "#pallet": {
+        "background": "#10131c",
+        "panel": "#181c28",
+        "card": "#1f2433",
+        "text": "#e8ecf4",
+        "text_dim": "#8a93a8",
+        "accent": "#2ec4b6",
+        "on_accent": "#0b0e15",
+        "fade": [ 16, 19, 28, 200 ]
+    },
+    "#base": {
+        "font": "DejaVuSans.ttf",
+        "font-size": 16,
+        "font-color": "text"
+    },
+    "#override": {
+        "_A": "(A)",
+        "_B": "(B)",
+        "_X": "(X)",
+        "_Y": "(Y)",
+        "_CHECKED": "[x]",
+        "_UNCHECKED": "[ ]"
+    },
+    "#elements": {
+        "background": {
+            "area": [ 0.0, 0.0, 1.0, 1.0 ],
+            "fill": "background"
+        },
+        "header": {
+            "area": [ 0.0, 0.0, 1.0, 0.1 ],
+            "fill": "panel"
+        },
+        "title": {
+            "font-size": 22,
+            "parent": "header",
+            "area": [ 0.04, 0.0, 0.7, 1.0 ],
+            "align": "midleft",
+            "text": "{scene.title}"
+        },
+        "clock": {
+            "parent": "header",
+            "area": [ 0.7, 0.0, 0.96, 1.0 ],
+            "font-color": "text_dim",
+            "align": "midright",
+            "text": "{system.time_24hr}"
+        },
+        "footer": {
+            "area": [ 0.0, 0.92, 1.0, 1.0 ],
+            "fill": "panel"
+        },
+        "button_bar": {
+            "parent": "footer",
+            "area": [ 0.04, 0.0, 0.96, 1.0 ],
+            "font-size": 14,
+            "align": "midright",
+            "bar": []
+        },
+        "left_pane": {
+            "area": [ 0.03, 0.13, 0.42, 0.89 ]
+        },
+        "right_pane": {
+            "area": [ 0.45, 0.13, 0.97, 0.89 ],
+            "fill": "card",
+            "roundness": 12
+        },
+        "menu": {
+            "parent": "left_pane",
+            "area": [ 0.0, 0.0, 1.0, 1.0 ],
+            "font-size": 18,
+            "line-height": 1.5,
+            "select-fill": "accent",
+            "select-color": "on_accent",
+            "autoscroll": "marquee"
+        },
+        "card_text": {
+            "font-size": 14,
+            "text-wrap": true,
+            "autoscroll": "slide",
+            "scroll-delay-start": 3000,
+            "parent": "right_pane",
+            "area": [ 16, 16, -16, -16 ]
+        }
+    },
+    "main_menu": {
+        "#element:background": {},
+        "#element:header": {},
+        "#element:title": {
+            "text": "Harbour Lights"
+        },
+        "#element:clock": {},
+        "#element:left_pane": {},
+        "#element:menu:option_list": {},
+        "#element:right_pane": {},
+        "#element:card_text:menu_tooltip": {
+            "area": [ 16, 16, -16, 0.5 ],
+            "font-size": 18,
+            "text": "{scene.tooltip}"
+        },
+        "free_label": {
+            "font-size": 11,
+            "font-color": "text_dim",
+            "parent": "right_pane",
+            "area": [ 16, 0.62, 0.5, 0.7 ],
+            "text": "FREE SPACE"
+        },
+        "free_value": {
+            "parent": "right_pane",
+            "area": [ 16, 0.7, 0.5, 0.82 ],
+            "font-size": 18,
+            "text": "{system.free_space}"
+        },
+        "battery_label": {
+            "font-size": 11,
+            "font-color": "text_dim",
+            "parent": "right_pane",
+            "area": [ 0.52, 0.62, -16, 0.7 ],
+            "text": "BATTERY"
+        },
+        "battery_value": {
+            "parent": "right_pane",
+            "area": [ 0.52, 0.7, -16, 0.82 ],
+            "font-size": 18,
+            "text": "{system.battery_level}"
+        },
+        "#element:footer": {},
+        "#element:button_bar": {}
+    },
+    "option_menu": {
+        "#element:background": {},
+        "#element:header": {},
+        "#element:title": {},
+        "#element:clock": {},
+        "#element:menu:option_list": {},
+        "#element:right_pane": {},
+        "#element:card_text:option_description": {
+            "font-size": 16,
+            "text": "{scene.tooltip}"
+        },
+        "#element:footer": {},
+        "#element:button_bar": {}
+    },
+    "ports_list": {
+        "#element:background": {},
+        "#element:header": {},
+        "#element:title": {},
+        "#element:clock": {},
+        "port_count": {
+            "font-size": 11,
+            "font-color": "text_dim",
+            "parent": "left_pane",
+            "area": [ 0.0, 0.0, 1.0, 0.08 ],
+            "align": "midleft",
+            "text": "{ports_list.filter_ports} PORTS"
+        },
+        "#element:menu:ports_list": {
+            "area": [ 0.0, 0.09, 1.0, 1.0 ],
+            "font-size": 15,
+            "line-height": 1.45
+        },
+        "#element:right_pane": {},
+        "port_title": {
+            "font-size": 18,
+            "parent": "right_pane",
+            "area": [ 16, 12, -16, 0.13 ],
+            "align": "midleft",
+            "autoscroll": "marquee",
+            "text": "{port_info.title}"
+        },
+        "port_porter": {
+            "font-size": 12,
+            "font-color": "text_dim",
+            "parent": "right_pane",
+            "area": [ 16, 0.13, -16, 0.2 ],
+            "align": "midleft",
+            "text": "by {port_info.porter}"
+        },
+        "port_image": {
+            "parent": "right_pane",
+            "area": [ 16, 0.22, -16, 0.62 ],
+            "image": "{port_info.image}"
+        },
+        "port_status": {
+            "parent": "right_pane",
+            "area": [ 16, 0.63, -16, 0.7 ],
+            "font-size": 13,
+            "font-color": "accent",
+            "align": "midleft",
+            "text": "{port_info.ready_to_run}"
+        },
+        "#element:card_text:port_desc": {
+            "area": [ 16, 0.71, -16, -12 ],
+            "font-size": 12,
+            "text": "{port_info.description}"
+        },
+        "#element:footer": {},
+        "#element:button_bar": {}
+    },
+    "port_info": {
+        "#element:background": {},
+        "#element:header": {},
+        "#element:title": {
+            "text": "{port_info.title}"
+        },
+        "#element:clock": {},
+        "port_desc": {
+            "area": [ 0.04, 0.13, 0.96, 0.89 ],
+            "text": "{port_info.description}",
+            "text-wrap": true
+        },
+        "#element:footer": {},
+        "#element:button_bar": {}
+    },
+    "filter_list": {
+        "#element:background": {},
+        "#element:header": {},
+        "#element:title": {},
+        "#element:clock": {},
+        "filter_list": {
+            "area": [ 0.04, 0.13, 0.96, 0.89 ],
+            "font-size": 14,
+            "line-height": 1.4,
+            "select-fill": "accent",
+            "select-color": "on_accent"
+        },
+        "#element:footer": {},
+        "#element:button_bar": {}
+    },
+    "message_window": {
+        "#element:background": {},
+        "#element:header": {},
+        "#element:title": {},
+        "#element:clock": {},
+        "message_text": {
+            "area": [ 0.04, 0.13, 0.96, 0.89 ],
+            "text": "",
+            "text-wrap": true
+        },
+        "#element:footer": {},
+        "#element:button_bar": {}
+    },
+    "message_box": {
+        "message_text": {
+            "area": [ 0.15, 0.25, 0.85, 0.75 ],
+            "fill": "card",
+            "roundness": 12,
+            "border": 20,
+            "text": "",
+            "text-wrap": true,
+            "align": "center"
+        },
+        "#element:footer": {},
+        "#element:button_bar": {}
+    }
+}

@@ -1,6 +1,10 @@
 # PortMaster-Themes
 
-The themes PortMaster lists in **Options › Select Theme**. Each one is a folder in `themes/`:
+The themes PortMaster lists in **Options › Select Theme**.
+
+**Making a theme?** [CREATING_A_THEME.md](CREATING_A_THEME.md) builds one step by step, and [the gallery](CREATING_A_THEME.md#the-themes-so-far) shows every theme here. Every key a theme can use is in PortMaster-GUI's [THEME.md](https://github.com/PortsMaster/PortMaster-GUI/blob/main/THEME.md).
+
+Each theme is a folder in `themes/`:
 
 ```
 themes/<name>/
