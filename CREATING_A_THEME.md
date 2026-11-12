@@ -349,11 +349,11 @@ Only the panes change; everything in them follows. Other capabilities are the sc
 
 The text a theme writes itself ("FREE SPACE", "GENRE") is translated too, once the theme is in the theme list: see [translations](https://github.com/PortsMaster/PortMaster-GUI/blob/main/THEME.md#translations).
 
-**Check it.** In the theme server, **One screen, every size** shows a screen at every common size. And from a PortMaster-GUI checkout, this draws every screen at the sizes you give and lists anything overlapping, cut off or off the screen:
+**Check it.** In the theme server, **One screen, every size** shows a screen at every common size (and **Layout**, at the top, each of a theme's [layouts](https://github.com/PortsMaster/PortMaster-GUI/blob/main/THEME.md#layouts-a-list-or-a-grid), when it has more than one). And from a PortMaster-GUI checkout, this draws every screen at the sizes you give and lists anything overlapping, cut off or off the screen:
 
 ```bash
 .venv/bin/python tools/theme_server/serve.py --themes ~/my-themes --export /tmp/out \
-    --theme harbour_lights --resolutions 480x320,640x480,720x720,1280x720,720x1280 --schemes all --check
+    --theme harbour_lights --resolutions 480x320,640x480,720x720,1280x720,720x1280 --schemes all --layouts all --check
 ```
 
 Harbour Lights passes at all of them.
