@@ -1,0 +1,168 @@
+{
+    "#info": {
+        "name": "Harbour Lights",
+        "creator": "You",
+        "description": "The theme from CREATING_A_THEME.md: deep blue, a teal light, rounded cards.",
+        "version": 1
+    },
+    "#pallet": {
+        "background": "#10131c",
+        "panel": "#181c28",
+        "card": "#1f2433",
+        "text": "#e8ecf4",
+        "text_dim": "#8a93a8",
+        "accent": "#2ec4b6",
+        "on_accent": "#0b0e15"
+    },
+    "#base": {
+        "font": "DejaVuSans.ttf",
+        "font-size": 16,
+        "font-color": "text"
+    },
+    "#override": {
+        "_A": "(A)",
+        "_B": "(B)",
+        "_X": "(X)",
+        "_Y": "(Y)",
+        "_CHECKED": "[x]",
+        "_UNCHECKED": "[ ]"
+    },
+    "#elements": {
+        "background": {
+            "area": [ 0.0, 0.0, 1.0, 1.0 ],
+            "fill": "background"
+        },
+        "header": {
+            "area": [ 0.0, 0.0, 1.0, 0.1 ],
+            "fill": "panel"
+        },
+        "title": {
+            "parent": "header",
+            "area": [ 0.04, 0.0, 0.7, 1.0 ],
+            "align": "midleft",
+            "text": "{scene.title}",
+            "font-size": 22
+        },
+        "clock": {
+            "parent": "header",
+            "area": [ 0.7, 0.0, 0.96, 1.0 ],
+            "font-color": "text_dim",
+            "align": "midright",
+            "text": "{system.time_24hr}"
+        },
+        "footer": {
+            "area": [ 0.0, 0.92, 1.0, 1.0 ],
+            "fill": "panel"
+        },
+        "button_bar": {
+            "parent": "footer",
+            "area": [ 0.04, 0.0, 0.96, 1.0 ],
+            "font-size": 14,
+            "align": "midright",
+            "bar": []
+        }
+    },
+    "main_menu": {
+        "#element:background": {},
+        "#element:header": {},
+        "#element:title": {
+            "text": "Harbour Lights"
+        },
+        "#element:clock": {},
+        "option_list": {
+            "area": [ 0.04, 0.13, 0.96, 0.89 ],
+            "font-size": 18,
+            "line-height": 1.5,
+            "select-fill": "accent",
+            "select-color": "on_accent"
+        },
+        "#element:footer": {},
+        "#element:button_bar": {}
+    },
+    "option_menu": {
+        "#element:background": {},
+        "#element:header": {},
+        "#element:title": {},
+        "#element:clock": {},
+        "option_list": {
+            "area": [ 0.04, 0.13, 0.96, 0.89 ],
+            "font-size": 18,
+            "line-height": 1.5,
+            "select-fill": "accent",
+            "select-color": "on_accent"
+        },
+        "#element:footer": {},
+        "#element:button_bar": {}
+    },
+    "ports_list": {
+        "#element:background": {},
+        "#element:header": {},
+        "#element:title": {},
+        "#element:clock": {},
+        "ports_list": {
+            "area": [ 0.04, 0.13, 0.96, 0.89 ],
+            "font-size": 15,
+            "line-height": 1.5,
+            "select-fill": "accent",
+            "select-color": "on_accent"
+        },
+        "#element:footer": {},
+        "#element:button_bar": {}
+    },
+    "port_info": {
+        "#element:background": {},
+        "#element:header": {},
+        "#element:title": {
+            "text": "{port_info.title}"
+        },
+        "#element:clock": {},
+        "port_desc": {
+            "area": [ 0.04, 0.13, 0.96, 0.89 ],
+            "text": "{port_info.description}",
+            "text-wrap": true
+        },
+        "#element:footer": {},
+        "#element:button_bar": {}
+    },
+    "filter_list": {
+        "#element:background": {},
+        "#element:header": {},
+        "#element:title": {},
+        "#element:clock": {},
+        "filter_list": {
+            "area": [ 0.04, 0.13, 0.96, 0.89 ],
+            "font-size": 14,
+            "line-height": 1.4,
+            "select-fill": "accent",
+            "select-color": "on_accent"
+        },
+        "#element:footer": {},
+        "#element:button_bar": {}
+    },
+    "message_window": {
+        "#element:background": {},
+        "#element:header": {},
+        "#element:title": {},
+        "#element:clock": {},
+        "message_text": {
+            "area": [ 0.04, 0.13, 0.96, 0.89 ],
+            "text": "",
+            "text-wrap": true
+        },
+        "#element:footer": {},
+        "#element:button_bar": {}
+    },
+    "message_box": {
+        "message_text": {
+            "area": [ 0.15, 0.25, 0.85, 0.75 ],
+            "fill": "card",
+            "roundness": 12,
+            "border": 20,
+            "text": "",
+            "text-wrap": true,
+            "align": "center"
+        },
+        "#element:footer": {},
+        "#element:button_bar": {}
+    }
+}
