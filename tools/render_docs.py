@@ -75,10 +75,12 @@ class Pictures:
             image.save(str(OUT / name), optimize=True)
         print(f"docs/images/{name}  {image.width}x{image.height}  {(OUT / name).stat().st_size // 1024} KB")
 
-    def boxes(self, image, regions, scale=2, legend_width=300):
-        """Each region outlined and numbered, the names beside it."""
+    def boxes(self, image, regions, scale=2, legend_width=300, only=None):
+        """Each region outlined and numbered, the names beside it (only: just these, in this order)."""
         image = image.resize((image.width * scale, image.height * scale), Image.LANCZOS)
         shown = [r for r in regions if r["rect"][2] > 0 and r["rect"][3] > 0]
+        if only is not None:
+            shown = sorted((r for r in shown if r["name"] in only), key=lambda r: only.index(r["name"]))
         draw = ImageDraw.Draw(image)
         for number, region in enumerate(shown, 1):
             x, y, w, h = [v * scale for v in region["rect"]]
@@ -126,8 +128,13 @@ def make(p):
     for step, screens in shown.items():
         if step in STEPS:
             p.save(p.grid([p.caption(p.image(step, s), s) for s in screens], len(screens)), f"{step}.png")
+    if "step-2" in STEPS:
+        p.save(p.boxes(p.image("step-2", "main_menu"), p.regions("step-2", "main_menu")), "step-2-regions.png")
     if "step-3" in STEPS:
         p.save(p.boxes(p.image("step-3", "ports_all"), p.regions("step-3", "ports_all")), "step-3-regions.png")
+        p.save(p.boxes(p.image("step-3", "main_menu"), p.regions("step-3", "main_menu"),
+                       only=["header", "left_pane", "right_pane", "footer"]), "step-3-panes.png")
+    atlas(p)
     if "step-5" in STEPS:
         p.save(p.grid([p.caption(p.image("step-5", "ports_all", scheme=s), s) for s in ("Night", "Day")], 2), "step-5.png")
 
@@ -149,6 +156,26 @@ def make(p):
     p.save(p.grid(cells, 3), "gallery.jpg")
 
 
+def atlas(p):
+    """The tutorial's buttons.png, bigger, each piece outlined with its [ x, y, width, height ]."""
+    source = TUTORIAL / STEPS[-1] / "buttons.png"
+    if not source.exists():
+        return
+    zoom = 2
+    image = Image.open(str(source)).convert("RGBA")
+    big = image.resize((image.width * zoom, image.height * zoom), Image.LANCZOS)
+    out = Image.new("RGB", (big.width + 40, big.height + 110), (24, 26, 32))
+    out.paste(big, (20, 20), big)
+    draw = ImageDraw.Draw(out)
+    names = ["_A", "_B", "_X", "_Y", "_CHECKED", "_UNCHECKED"]
+    for n, name in enumerate(names):
+        x = 20 + n * 64 * zoom
+        draw.rectangle([x, 20, x + 64 * zoom - 1, 20 + 64 * zoom - 1], outline=(255, 99, 71), width=2)
+        draw.text((x + 64 * zoom // 2, 20 + 64 * zoom + 22), name, font=p.font(15), fill=(235, 235, 235), anchor="mm")
+        draw.text((x + 64 * zoom // 2, 20 + 64 * zoom + 46), f"[ {n * 64}, 0, 64, 64 ]", font=p.font(13), fill=(160, 170, 185), anchor="mm")
+    p.save(out, "atlas.png")
+
+
 def scaled(image, height):
     return image.resize((round(image.width * height / image.height), height), Image.LANCZOS)
 
@@ -162,6 +189,10 @@ def editor_shot(gui, port=8099):
     work = Path(tempfile.mkdtemp(prefix="render-docs-"))
     try:
         shutil.copytree(str(TUTORIAL / STEPS[-1]), str(work / "harbour_lights"))
+        ## Step 1 with a mistake in it, for the editor's problem list: a comma left out.
+        shutil.copytree(str(TUTORIAL / STEPS[0]), str(work / "my_first_theme"))
+        first = (work / "my_first_theme" / "theme.json")
+        first.write_text(first.read_text(encoding="utf-8").replace('"name": "Harbour Lights",', '"name": "Harbour Lights"', 1), encoding="utf-8")
         server = subprocess.Popen([str(Path(gui) / ".venv" / "bin" / "python"), str(Path(gui) / "tools" / "theme_server" / "serve.py"),
                                    "--themes", str(work), "--port", str(port)], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         try:
@@ -174,7 +205,9 @@ def editor_shot(gui, port=8099):
                 except OSError:
                     time.sleep(0.2)
             for name, query in (("editor.png", "#view=edit&theme=harbour_lights&res=640x480&scheme=Night"),
-                                ("server.png", "#view=preview&mode=screens&theme=harbour_lights&res=640x480&scheme=Night")):
+                                ("server.png", "#view=preview&mode=screens&theme=harbour_lights&res=640x480&scheme=Night"),
+                                ("server-sizes.png", "#view=preview&mode=resolutions&modeShot=ports_all&theme=harbour_lights&scheme=Night"),
+                                ("json-mistake.png", "#view=edit&theme=my_first_theme&res=640x480")):
                 subprocess.run([str(chrome[-1]), "--headless", "--no-sandbox", "--hide-scrollbars", "--window-size=1440,900",
                                 "--virtual-time-budget=25000", f"--screenshot={OUT / name}", f"http://127.0.0.1:{port}/{query}"],
                                stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, timeout=120)
