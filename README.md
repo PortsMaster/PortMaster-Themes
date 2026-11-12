@@ -41,7 +41,7 @@ it as an update.
 
    ```
    python3 tools/theme_server/serve.py --themes ../PortMaster-Themes/themes --export /tmp/out \
-       --theme <name> --resolutions 640x480,1280x720,1240x1080,720x1280 --schemes all --check
+       --theme <name> --resolutions 640x480,1280x720,1240x1080,720x1280 --schemes all --layouts all --check
    ```
 
    It lists text and images of two regions on top of each other, and content off the screen or

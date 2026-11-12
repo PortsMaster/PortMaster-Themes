@@ -43,6 +43,10 @@ jobs:
           ARGS=""
           for theme in $CHANGED; do [ -d "themes/$theme" ] && ARGS="$ARGS --theme $theme"; done
           [ -z "$ARGS" ] && exit 0
+          ## Every layout of a theme with #layouts (a list and a grid, say), with a PortMaster-GUI
+          ## whose theme server has --layouts.
+          LAYOUTS=""
+          python3 PortMaster-GUI/tools/theme_server/serve.py --help | grep -q -- "--layouts" && LAYOUTS="--layouts all"
           python3 PortMaster-GUI/tools/theme_server/serve.py --themes themes --export layout $ARGS \
             --resolutions 640x480,854x480,720x720,1280x720,1920x1080,1240x1080,720x1280,480x320,1024x768 \
-            --schemes all --langs en_US --check
+            --schemes all $LAYOUTS --langs en_US --check
